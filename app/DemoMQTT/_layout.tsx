@@ -15,12 +15,37 @@ interface Sensor {
   lastUpdate: string;
 }
 
-interface PayloadPompaA {
+export interface PayloadPompaA {
   PompaA: Boolean;
 }
 
-interface PayloadPompaB {
+export interface PayloadPompaB {
   PompaB: Boolean;
+}
+
+/**
+ * {
+  "senorSuhuAir": "27.5",
+  "senorSuhu": "29.1",
+  "sensorPPM": "350",
+  "sensorPh": "6.8",
+  "lastUpdate": "2025-07-03T20:00:00+07:00"
+}
+ */
+
+
+export const sendActionButtonA = (payload: PayloadPompaA) => {
+  publishMessage({
+    topic: 'demo/mqtt/data/action/pompaA',
+    payload: JSON.stringify(payload),
+  });
+}
+
+export const sendActionButtonB = (payload: PayloadPompaB) => {
+  publishMessage({
+    topic: 'demo/mqtt/data/action/pompaB',
+    payload: JSON.stringify(payload),
+  });
 }
 
 export default function HomeScreen() {
@@ -51,22 +76,6 @@ export default function HomeScreen() {
       },
     });
   }, []);
-
-
-  const sendActionButtonA = (payload: PayloadPompaA) => {
-    publishMessage({
-      topic: 'demo/mqtt/data/action/pompaA',
-      payload: JSON.stringify(payload),
-    });
-  }
-
-  const sendActionButtonB = (payload: PayloadPompaB) => {
-    publishMessage({
-      topic: 'demo/mqtt/data/action/pompaB',
-      payload: JSON.stringify(payload),
-    });
-  }
-
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
